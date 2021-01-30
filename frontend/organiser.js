@@ -5,6 +5,6 @@ function handleButtonClicks() {
     });
 }
 
-$(function() {
-    handleButtonClicks();
-});
+// $(function() {
+//     handleButtonClicks();
+// });

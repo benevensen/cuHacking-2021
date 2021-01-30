@@ -3,71 +3,29 @@
 }
 
 body{
-    background-color: grey;
+    background-color: whitesmoke;
     overflow-x: hidden !important;
 }
 
-.wrapper {
-    max-width: 1000px;
-    padding: 3px;
-    margin: 2.5px 0;
-    display: flex;
-    justify-content: space-between;
+nav{
+    background-color: grey;
+    background: grey;
+    
 }
 
-.wrapper.category_buttons{
-    width: 100%;
-    position: absolute;
-    top: 30%;
-    left: 0;
-    right: 0;
-    margin: auto
+.selection_menu{
+    top: 20%
+    
 }
 
-button.category-button{
-    border-radius: 10px;
-    height: 45px;
-    width: 42%;
-    background: rgba(15, 15, 15, 0.856);
-    color: white;
-    border: 0;
-    transition: background 0.8s;
-    cursor: pointer;
-    outline: none;
-    margin-left: 10px;
-}
-
-button.category-button:hover,  button.category-button:active{
-    background: tomato;
+button.topic{
+    
 }
 
 @media screen and (max-width: 667px) {
     body {
         overflow-x: hidden !important;
     }
-
-    .wrapper.category_buttons{
-        display: block;
-        align-items: center;
-        justify-content: center;
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-    }
-
-    button.category-button{
-        border-radius: 10px;
-        width: 55%;
-        justify-content: center;
-        background: rgba(15, 15, 15, 0.856);
-        border: none;
-        color: white;
-        padding: 12px;
-        text-align: center;
-        font-size: 16px;
-        margin: 0 auto 10px;
-        transition: 0.3s;
-        display: block;
-        text-decoration: none;
-        cursor: pointer;
-    }
+    
+    
 }

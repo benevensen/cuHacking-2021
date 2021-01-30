@@ -11,19 +11,38 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <nav class="navbar navbar-expand navbar-light bg-secondary">
+      <div class="title">qQuery</div>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="organiser.html">Quiz creator<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="applicant.html">Quiz viewer</a>
+            </li>
+        </ul>
+    </nav>
 
 
-
-    <!-- <h1>Question creation page</h1> -->
-    <!-- <h5>Please select a category:-</h5> -->
-    <div class="wrapper category_buttons">
-      <button class="category-button" >Music</button>
-      <button class="category-button" >Sports</button>
-      <button class="category-button" >Documentaries</button>
-      <button class="category-button" >Award shows</button>
-      <button class="category-button" >E-Sports</button>
-      <button class="category-button" >Entertainment</button>
-  </div>  
+    <div class="d-flex justify-content-center my-auto selection_menu">
+      <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group btn-group-lg mr-2 selection_topics" role="group" aria-label="First group">
+          <button type="button" class="btn btn-secondary topic">Movies</button>
+          <button type="button" class="btn btn-secondary topic">Music</button>
+          <button type="button" class="btn btn-secondary topic">Sports</button>
+          <button type="button" class="btn btn-secondary topic">E-Sports</button>
+          <button type="button" class="btn btn-secondary topic">Documentaries</button>
+          <button type="button" class="btn btn-secondary topic">Entertainment</button>
+        </div>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <div class="input-group-text" id="btnGroupAddon">Number of questions</div>
+          </div>
+          <input type="text" class="form-control" placeholder="Number of questions | e.g., 4" aria-label="Question number" aria-describedby="btnGroupAddon">
+        </div>
+      </div>
+    </div>
+    
     
       
     <!-- Optional JavaScript -->
