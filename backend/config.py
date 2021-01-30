@@ -2,9 +2,9 @@ import os
 
 
 class Config:
-    JWT_SECRET = os.getenv("JWT_SECRET")
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = "sqlite://///etc/shg/db.sqlite"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///../db.sqlite"
 
 
 class DevelopmentConfig(Config):
