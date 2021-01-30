@@ -4,28 +4,70 @@
 
 body{
     background-color: grey;
+    overflow-x: hidden !important;
 }
 
-.button-select{
-    padding: 30px;
+.wrapper {
+    max-width: 1000px;
+    padding: 3px;
+    margin: 2.5px 0;
     display: flex;
-    list-style: none;
-    
+    justify-content: space-between;
 }
 
-.button-select button{
-    border-radius: 6px;
-    width: 80%;
-    background-color: #f4511e;
-    border: none;
+.wrapper.category_buttons{
+    width: 100%;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin: auto
+}
+
+button.category-button{
+    border-radius: 10px;
+    height: 45px;
+    width: 42%;
+    background: rgba(15, 15, 15, 0.856);
     color: white;
-    padding: 16px 32px;
-    text-align: center;
-    font-size: 16px;
-    margin: 4px 2px;
-    opacity: 0.6;
-    transition: 0.3s;
-    display: inline-block;
-    text-decoration: none;
+    border: 0;
+    transition: background 0.8s;
     cursor: pointer;
+    outline: none;
+    margin-left: 10px;
+}
+
+button.category-button:hover,  button.category-button:active{
+    background: tomato;
+}
+
+@media screen and (max-width: 667px) {
+    body {
+        overflow-x: hidden !important;
+    }
+
+    .wrapper.category_buttons{
+        display: block;
+        align-items: center;
+        justify-content: center;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    button.category-button{
+        border-radius: 10px;
+        width: 55%;
+        justify-content: center;
+        background: rgba(15, 15, 15, 0.856);
+        border: none;
+        color: white;
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+        margin: 0 auto 10px;
+        transition: 0.3s;
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+    }
 }
