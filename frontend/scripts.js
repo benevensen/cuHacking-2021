@@ -27,8 +27,6 @@ function getAuth(entry_code) {
 }
 
 function getQuestion(el) {
-    let question;
-    let title;
     fetch("http://localhost:8081/question/approved", {
         method: "GET",
         headers: {
@@ -38,12 +36,22 @@ function getQuestion(el) {
         .then(res => res.json())
         .then((data) => {
             data['questions'].forEach(function (item) {
-                    question = document.createElement(" <div>")
-                    question.className = "wrapper bg-grey question_box"
-                    title = document.createElement('<h6>')
-                    title.textContent = item['prompt']
-                    question.append(document.createElement('<h6>'))
-                    el.append();
+                    let question = document.createElement("div");
+                    question.className = "wrapper bg-grey question_box";
+                    let title = document.createElement('h6');
+                    title.textContent = item['prompt'];
+                    question.append(title);
+                    let span = document.createElement('span');
+                    span.className = "options";
+                    question.append(span);
+                    item['options'].forEach(function (item) {
+                        let button = document.createElement('button');
+                        button.className = "option";
+                        button.textContent = item;
+                        button.onclick = checkAnswer(item)
+                        question.append(button);
+                    })
+                    el.append(question);
                 }
             )
         })
