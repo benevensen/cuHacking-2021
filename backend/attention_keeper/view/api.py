@@ -66,7 +66,7 @@ def create_app():
         else:
             return event.delete_event(event_id)
 
-    @app.route('/register', methods=['GET'])
+    @app.route('/register', methods=['POST'])
     def register():
         schema_validator.participant_validator.validate(request.json)
         return participant.create_participant(**request.json)
@@ -91,7 +91,7 @@ def create_app():
             schema_validator.answer_question_validator.validate(request.json)
             return question.answer(user, **request.json)
 
-    @app.route('/test', methods=['GET'])
+    @app.route('/test', methods=['POST'])
     @jwt_required
     def test():
         user = get_current_user()
