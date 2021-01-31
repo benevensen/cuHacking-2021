@@ -43,11 +43,25 @@ button.option:hover {
 }
 
 /* TABLETS */
-@media screen and (max-width: 2000px) {
+@media screen and (max-width: 4000px) {
     body {
         overflow-x: hidden !important;
         background-image: url(/frontend/images/alberto-restifo-kKrfPaKgE1c-unsplash.jpg);
         background-size: cover;
+    }
+
+    #next_pg {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        right: 0;
+    }
+
+    #next_pg > button{
+        width: 200px;
+        height: 50px;
     }
 
     header {
