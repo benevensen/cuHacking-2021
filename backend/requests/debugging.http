@@ -28,8 +28,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwOTUxM
 Content-Type: application/json
 
 {
-  "question_id": 1,
-  "approved": true
+  "question_id": 4,
+  "approved": false
 }
 
 ###
@@ -42,8 +42,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwOTUxM
 Content-Type: application/json
 
 {
-  "question_id": 1,
-  "option": "Hussein Obama II"
+  "question_id": 2,
+  "option": "1961"
 }
 
 ###

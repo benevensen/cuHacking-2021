@@ -143,3 +143,5 @@ backend/.idea/
 # node_modules
 node_modules/
 *.sqlite-journal
+
+frontend/.idea/
