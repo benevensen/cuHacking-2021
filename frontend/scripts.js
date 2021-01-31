@@ -6,9 +6,6 @@ function remove(el) {
     element.remove();
 }
 
-function checkAnswer(el) {
-
-}
 
 function getAuth(entry_code) {
     fetch("http://localhost:8081/register", {
@@ -27,7 +24,7 @@ function getAuth(entry_code) {
 }
 
 function getQuestion(el) {
-    fetch("http://localhost:8081/question/approved", {
+    fetch('http://localhost:8081/question/approved', {
         method: "GET",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("auth_code")
@@ -44,11 +41,11 @@ function getQuestion(el) {
                     let span = document.createElement('span');
                     span.className = "options";
                     question.append(span);
-                    item['options'].forEach(function (item) {
+                    item['options'].forEach(function (option) {
                         let button = document.createElement('button');
                         button.className = "option";
-                        button.textContent = item;
-                        button.onclick = checkAnswer(item)
+                        button.textContent = option;
+                        button.onclick = () => this.checkAnswer(item['question_id'], option)
                         question.append(button);
                     })
                     el.append(question);
@@ -57,15 +54,18 @@ function getQuestion(el) {
         })
 }
 
-function checkAnswer(text_ans) {
-    fetch("http://localhost:8081/quest/approved", {
+function checkAnswer(question_id, option) {
+    console.log(question_id)
+    fetch('http://localhost:8081/question/approved', {
         method: "POST",
         headers: {
+            "Content-Type": "application/json",
             "Authorization": "Bearer " + localStorage.getItem("auth_code")
         },
-        body: {
-            "answer": text_ans
-        },
+        body: JSON.stringify({
+            "question_id": question_id,
+            "option": option,
+        }),
     })
         .then(res => res.json())
 }
