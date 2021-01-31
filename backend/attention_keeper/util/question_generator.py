@@ -20,7 +20,7 @@ def extract_ner(text: str):
     return chunks
 
 
-def location_question(text: str, event_id: int) -> bool:
+def location_question(title: str, text: str, event_id: int) -> bool:
     entity_list = extract_ner(text)
     cities = [city.name for city in City.query.all()]
     for entity in entity_list:
@@ -34,7 +34,7 @@ def location_question(text: str, event_id: int) -> bool:
 
             for i in range(0, 3):
                 options.append(cities[city_numbers[i]])
-            question = Question(event_id=event_id, prompt=text.replace(entity[1], "_______"))
+            question = Question(event_id=event_id, prompt=title+": "+text.replace(entity[1], "_______"))
             db.session.add(question)
             db.session.commit()
             for option in random.sample(options, len(options)):
@@ -45,7 +45,7 @@ def location_question(text: str, event_id: int) -> bool:
     return False
 
 
-def person_question(text: str, event_id: int) -> bool:
+def person_question(title: str, text: str, event_id: int) -> bool:
     entity_list = extract_ner(text)
     options = []
     for entity in entity_list:
@@ -59,11 +59,10 @@ def person_question(text: str, event_id: int) -> bool:
                 return False
 
             for names in possible_names:
-                if names[0] == "PERSON" and (names[1] not in entity_list) and (len(options) < 4) and \
-                        " " in names[1] and names[1] not in options:
+                if names[0] == "PERSON" and (names[1] not in entity_list) and (len(options) < 4) and  " " in names[1] and (names[1] not in options) and ("college" not in names[1].lower()) and ("university" not in names[1].lower()):
                     options.append(names[1])
     if len(options) == 4:
-        question = Question(event_id=event_id, prompt=text.replace(options[0], "_______"))
+        question = Question(event_id=event_id, prompt=title+": "+text.replace(options[0], "_______"))
         db.session.add(question)
         db.session.commit()
         for option in options:
@@ -75,7 +74,7 @@ def person_question(text: str, event_id: int) -> bool:
         return False
 
 
-def date_question(text: str, event_id: int) -> bool:
+def date_question(title: str, text: str, event_id: int) -> bool:
     try:
         x = int(re.search('\d{4}', text).group())
         # if the time difference is less than 5 years, we need to apply a shift so the answers are not obviously wrong
@@ -86,7 +85,7 @@ def date_question(text: str, event_id: int) -> bool:
         else:
             options = random.sample(list(range(x - 5, x - 1)) + list(range(x + 1, x + 5)), 3)
         options.append(x)
-        question = Question(event_id=event_id, prompt=text.replace(str(x), "_______"))
+        question = Question(event_id=event_id, prompt=title+": "+text.replace(str(x), "_______"))
         db.session.add(question)
         db.session.commit()
         for option in options:
@@ -103,7 +102,7 @@ def query(text: str, event_id: int):
         wiki_query = wikipedia.search(text)
         # Theres a corner case in particular with the U.S. that makes this code go haywire. Just remove it. Its a
         # rare case.
-        wiki_list = wikipedia.summary(wiki_query[0], 0, 0, False, True).replace('U.S.', 'US')
+        wiki_list = wikipedia.summary(wiki_query[0], 0, 0, False, True).replace('U.S.', 'US').replace(' v. ', ' v ')
     except wikipedia.WikipediaException:
         return None
 
@@ -126,8 +125,8 @@ def query(text: str, event_id: int):
     location_q_list = []
 
     for sentence in good_sentences:
-        person_q_list.append(person_question(sentence, event_id))
-        date_q_list.append(date_question(sentence, event_id))
-        location_q_list.append(location_question(sentence, event_id))
+        person_q_list.append(person_question(wiki_query[0], sentence, event_id))
+        date_q_list.append(date_question(wiki_query[0], sentence, event_id))
+        location_q_list.append(location_question(wiki_query[0], sentence, event_id))
 
     return {"person_q_list": person_q_list, "date_q_list": date_q_list, "location_q_list": location_q_list}
