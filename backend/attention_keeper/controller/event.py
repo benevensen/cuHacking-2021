@@ -20,11 +20,11 @@ def decode_rss(polling_frequency: int, rss_feed: str, event_id: int):
         LOGGER.debug('polling rss feed: %s', rss_feed)
         feed = feedparser.parse(rss_feed)
         with app.app_context():
-            for entry in feed['entries']:
-                if Item.query.filter_by(title=entry['inception_slug']).first() is None:
-                    item = Item(event_id=event_id, title=entry['inception_slug'],
-                                isBreak=entry['inception_break'] == 'true')
-                    db.session.add(item)
+            items = Item.query.filter_by(event_id=event_id).all()
+            for entry in feed['entries'][len(items):]:
+                item = Item(event_id=event_id, title=entry['inception_slug'],
+                            isBreak=entry['inception_break'] == 'true')
+                db.session.add(item)
             db.session.commit()
         time.sleep(polling_frequency)
 
