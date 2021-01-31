@@ -18,7 +18,8 @@ def create_app():
     jwt = JWTManager(app)
 
     from attention_keeper.model.participant import Participant
-    from attention_keeper.model.question import Question,QuestionOption
+    from attention_keeper.model.questionParticipant import QuestionParticipant
+    from attention_keeper.model.question import Question, QuestionOption
     from attention_keeper.model.item import Item
     from attention_keeper.model.event import Event
     from attention_keeper.model.city import City
@@ -33,7 +34,7 @@ def create_app():
         db.session.commit()
 
     from attention_keeper.controller import event, question, participant
-    from attention_keeper.util import question_generator
+    from attention_keeper.util.question_generator import QuestionGenerator
 
     @jwt.user_identity_loader
     def user_identity_lookup(user: Participant):
@@ -68,21 +69,26 @@ def create_app():
     def questions():
         user = get_current_user()
         if request.method == 'GET':
-            return question.get_question(user.event_id)
+            return question.get_not_approved_question(user.event_id)
         else:
-            schema_validator.participant_validator.validate(request.json)
+            schema_validator.approve_question_validator.validate(request.json)
             return question.approve_question(**request.json)
 
-    @app.route('/question/approved', methods=['GET'])
+    @app.route('/question/approved', methods=['GET', 'POST'])
     @jwt_required
     def question_approved():
         user = get_current_user()
-        return question.get_approved_question(user.event_id)
+        if request.method == 'GET':
+            return question.get_approved_question(user)
+        else:
+            schema_validator.answer_question_validator.validate(request.json)
+            return question.answer(user, **request.json)
 
     @app.route('/test', methods=['GET'])
     @jwt_required
     def test():
         user = get_current_user()
-        return question_generator.query(request.json['text'], user.event_id)
+        QuestionGenerator(request.json['text'], user.event_id).start()
+        return "Operation successful", status.HTTP_200_OK
 
     return app
