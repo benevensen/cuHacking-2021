@@ -26,24 +26,34 @@ function getAuth(entry_code) {
         })
 }
 
-function newQuestion(bearer) {
-    fetch("http://localhost:8081/quest/approved", {
+function getQuestion(el) {
+    let question;
+    let title;
+    fetch("http://localhost:8081/question/approved", {
         method: "GET",
         headers: {
-            "Authorization: Bearer": bearer
+            "Authorization": "Bearer " + localStorage.getItem("auth_code")
         }
     })
         .then(res => res.json())
         .then((data) => {
-            localStorage.setItem('question', data['question'])
+            data['questions'].forEach(function (item) {
+                    question = document.createElement(" <div>")
+                    question.className = "wrapper bg-grey question_box"
+                    title = document.createElement('<h6>')
+                    title.textContent = item['prompt']
+                    question.append(document.createElement('<h6>'))
+                    el.append();
+                }
+            )
         })
 }
 
-function submitQuestion(bearer, text_ans) {
+function checkAnswer(text_ans) {
     fetch("http://localhost:8081/quest/approved", {
         method: "POST",
         headers: {
-            "Authorization: Bearer": bearer
+            "Authorization": "Bearer " + localStorage.getItem("auth_code")
         },
         body: {
             "answer": text_ans
