@@ -3,6 +3,7 @@ import csv
 import nltk
 from flask import request
 from flask_api import FlaskAPI, status
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_current_user
 from flask_sqlalchemy import SQLAlchemy
 
@@ -17,7 +18,7 @@ db = SQLAlchemy(app)
 
 def create_app():
     jwt = JWTManager(app)
-
+    CORS(app, resources={r"/*": {"origins": "*"}})
     from attention_keeper.model.participant import Participant
     from attention_keeper.model.city import City
 
