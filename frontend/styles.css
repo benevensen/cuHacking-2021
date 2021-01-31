@@ -50,17 +50,6 @@ button.option:hover {
         background-size: cover;
     }
 
-    .wrapper.entry{
-        position: absolute;
-        top: 52px;
-    }
-
-    .entry > input {
-        width: 400px;
-        text-align: center;
-        padding: 5px;
-    }
-
     header {
         display: flex;
         justify-content: center;
@@ -72,9 +61,19 @@ button.option:hover {
         overflow-wrap: break-word;
     }
 
+    .switch_pages{
+        position: absolute;
+        top: 500px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 200px;
+        padding: 15px;
+    }
+
     header > h3 {
         position: relative;
-        top: 95px;
+        top: 75px;
         font-size: larger;
         color: #777777;
         opacity: 99%;
@@ -98,6 +97,26 @@ button.option:hover {
         display: block;
         border-radius: 4px;
         margin: auto auto 15px;
+    }
+
+    .wrapper.entry {
+        position: relative;
+        top: 200px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .wrapper.entry > input, button{
+        border-radius: 4px;
+        border: solid 1px;
+    }
+
+    input#entry_code {
+        padding: 20px;
+        width: 500px;
+        border-radius: 5px;
+        outline: none;
+        text-align: center;
     }
 
     .question_box > .options {
