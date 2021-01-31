@@ -1,3 +1,12 @@
+POST http://localhost:8081/event
+Content-Type: application/json
+
+{
+  "name": "test",
+  "rss_feed": "https://news.demo.inception.cloud/inception/RunningOrder/RunningOrder.rss?id=3962"
+}
+
+###
 GET http://localhost:8081/
 
 ###
@@ -7,5 +16,9 @@ GET http://localhost:8081/register
 ###
 GET http://localhost:8081/question
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwMzY2MTcsIm5iZiI6MTYxMjAzNjYxNywianRpIjoiNjY2NzNiNjItZWJhZC00NmRjLTkxMTMtMWNkZDgxNTZlMzZlIiwiaWRlbnRpdHkiOjMsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.zuS9b6gJDRh0iNoAgVzsiW95aN1G6n-fyyiHNuKAObE
+
+###
+
+DELETE http://localhost:8081/event/2
 
 ###
