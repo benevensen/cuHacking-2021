@@ -1,33 +1,29 @@
-from flask import g
 from flask import request
 from flask_api import FlaskAPI, status
 from flask_jwt_extended import JWTManager, jwt_optional, get_current_user
 from flask_sqlalchemy import SQLAlchemy
 
+from attention_keeper.config import get_config
 from attention_keeper.util import logger, schema_validator
 
-db = SQLAlchemy()
-
 LOGGER = logger.get_logger(__name__)
-
 app = FlaskAPI(__name__, instance_relative_config=True)
+app.config.from_object(get_config())
+db = SQLAlchemy(app)
 
 
-def create_app(config):
-    app.config.from_object(config)
+def create_app():
     jwt = JWTManager(app)
 
     from attention_keeper.model.participant import Participant
     from attention_keeper.model.item import Item
     from attention_keeper.model.event import Event
 
-    db.init_app(app)
     with app.app_context():
         db.create_all()
-        g.rss_feed_processes = dict()
 
     from attention_keeper.util.auth import create_participant_jwt
-    from attention_keeper.controllers import event
+    from attention_keeper.controller import event
 
     @jwt.user_identity_loader
     def user_identity_lookup(participant: Participant):
