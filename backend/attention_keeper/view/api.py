@@ -79,7 +79,7 @@ def create_app():
     def question_approved():
         user = get_current_user()
         if request.method == 'GET':
-            return question.get_approved_question(user.event_id)
+            return question.get_approved_question(user)
         else:
             schema_validator.answer_question_validator.validate(request.json)
             return question.answer(user, **request.json)
