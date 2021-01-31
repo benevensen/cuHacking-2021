@@ -50,14 +50,21 @@ button.option:hover {
         background-size: cover;
     }
 
+    .wrapper.entry{
+        position: absolute;
+        top: 52px;
+    }
+
+    .entry > input {
+        width: 400px;
+        text-align: center;
+        padding: 5px;
+    }
+
     header {
         display: flex;
         justify-content: center;
-        /* width: 80%; */
-        /* height: 100%; */
         position: relative;
-        /* left: 20px; */
-        /* right: 8%; */
         top: 10px;
     }
 
@@ -67,7 +74,7 @@ button.option:hover {
 
     header > h3 {
         position: relative;
-        top: 75px;
+        top: 95px;
         font-size: larger;
         color: #777777;
         opacity: 99%;
