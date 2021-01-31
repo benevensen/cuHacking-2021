@@ -30,15 +30,15 @@ button.option {
     border-radius: 4px;
     width: 20%;
     box-shadow: 0px 1px 1px 1px;
+    transition: background-color 0.8s;
 }
 
-.overlay{
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: red;
+button.option:hover{
+    background-color: rgb(160, 160, 160);
+}
+
+.hidden{
+    display:none;
 }
 
 /* TABLETS */
