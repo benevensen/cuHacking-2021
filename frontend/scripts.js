@@ -37,6 +37,7 @@ function getQuestion(el) {
                     question.className = "wrapper bg-grey question_box";
                     let title = document.createElement('h6');
                     title.textContent = item['prompt'];
+                    title.style.borderBottom = "solid 1.5px";
                     question.append(title);
                     let span = document.createElement('span');
                     span.className = "options";
