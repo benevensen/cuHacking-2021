@@ -19,21 +19,18 @@ with open(NA_LOCATION_FILE, newline='') as f:
 @dataclass
 class locQObject:
 	line1: str
-	line2: str
 	options: list[str]
 	solution: str
 
 @dataclass
 class perQObject:
 	line1: str
-	line2: str
 	options: list[str] 
 	solution: str
 
 @dataclass
 class dateQObject:
 	line1: str
-	line2: str
 	options: list[int] 
 	solution: int
 
@@ -64,7 +61,7 @@ def location_question(text: str):
 			for i in range(0,3):
 				options.append(available_cities[city_numbers[i]][0])
 			#Randomize the order of the options
-			qaobject = locQObject("Fill in the blank!", text.replace(entity[1], "_______"), random.sample(options, len(options)), entity[1])
+			qaobject = locQObject(text.replace(entity[1], "_______"), random.sample(options, len(options)), entity[1])
 			return qaobject
 	return False
 
@@ -85,7 +82,7 @@ def person_question(text: str):
 				if names[0] == "PERSON" and (names[1] not in entity_list) and (len(options) < 4) and " " in names[1]:
 					options.append(names[1])
 	if (len(options)==4):
-		perquestion = perQObject("Fill in the blank!", text.replace(options[1], "_______"), options, options[1])
+		perquestion = perQObject(text.replace(options[1], "_______"), options, options[1])
 		perquestion.options = random.sample(options, len(options))
 		return perquestion
 	else:
@@ -102,11 +99,13 @@ def date_question(text: str):
 		else:
 			options = random.sample(list(range(x-5,x-1))+list(range(x+1,x+5)),3)
 		options.append(x)
-		datequestion = dateQObject("Fill in the blank!", text.replace(str(x), "_______"), options, x)
+		datequestion = dateQObject(text.replace(str(x), "_______"), options, x)
 		return datequestion
 	except:
 		return False
 
+#In Progress
+'''
 def query(text: str):
 	try:
 		print(text)
@@ -118,24 +117,21 @@ def query(text: str):
 
 query("Scarlett Johansson")
 
-'''
+#Test Cases
 obama2 = "After graduating from Columbia University in 1983, he worked as a community organizer in Chicago"
 question_1 = location_question(obama2)
 print(question_1.line1)
-print(question_1.line2)
 print(question_1.options)
 print(question_1.solution)
 
 author = "Invented in 1891 by Canadian-American gym teacher James Naismith in Springfield, Massachusetts, United States, basketball has evolved to become one of the world's most popular and widely viewed sports"
 question_2 = person_question(author)
 print(question_2.line1)
-print(question_2.line2)
 print(question_2.options)
 print(question_2.solution)
 
 question_3 = date_question("The Mueller report, officially titled Report On The Investigation Into Russian Interference In The - Presidential Election, is the official report documenting the findings and conclusions of former Special Counsel Robert Mueller's investigation into Russian efforts to interfere in the - United States presidential election, allegations of conspiracy or coordination between Donald Trump's presidential campaign and Russia, and allegations of obstruction of justice.")
 print(question_3.line1)
-print(question_3.line2)
 print(question_3.options)
 print(question_3.solution)
 '''
