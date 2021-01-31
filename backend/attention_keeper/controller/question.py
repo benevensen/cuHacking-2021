@@ -27,11 +27,10 @@ def approve_question(question_id: int, approved: bool):
 
 
 def format_questions(questions: List[Question]):
-    formatted_questions =  {'questions': [{'question_id': question.question_id, 'prompt': question.prompt,
+    return {'questions': [{'question_id': question.question_id, 'prompt': question.prompt,
                            'options': [question_option.option for question_option in
                                        QuestionOption.query.filter_by(question_id=question.question_id).all()]} for
                           question in questions]}
-    return formatted_questions
 
 
 def answer(participant: Participant, question_id: int, option: str):
