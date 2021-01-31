@@ -9,6 +9,7 @@ from flask_api import status
 from attention_keeper.model.event import Event
 from attention_keeper.model.item import Item
 from attention_keeper.util import logger
+from attention_keeper.util.question_generator import QuestionGenerator
 from attention_keeper.view.api import app
 from attention_keeper.view.api import db
 
@@ -25,6 +26,8 @@ def decode_rss(polling_frequency: int, rss_feed: str, event_id: int):
                 item = Item(event_id=event_id, title=entry['inception_slug'],
                             isBreak=entry['inception_break'] == 'true')
                 db.session.add(item)
+                if entry['inception_slug']:
+                    QuestionGenerator(entry['inception_slug'], event_id).start()
             db.session.commit()
         time.sleep(polling_frequency)
 

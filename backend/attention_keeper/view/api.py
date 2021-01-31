@@ -18,9 +18,6 @@ def create_app():
     jwt = JWTManager(app)
 
     from attention_keeper.model.participant import Participant
-    from attention_keeper.model.question import Question,QuestionOption
-    from attention_keeper.model.item import Item
-    from attention_keeper.model.event import Event
     from attention_keeper.model.city import City
 
     with app.app_context():
@@ -33,7 +30,7 @@ def create_app():
         db.session.commit()
 
     from attention_keeper.controller import event, question, participant
-    from attention_keeper.util import question_generator
+    from attention_keeper.util.question_generator import QuestionGenerator
 
     @jwt.user_identity_loader
     def user_identity_lookup(user: Participant):
@@ -83,6 +80,7 @@ def create_app():
     @jwt_required
     def test():
         user = get_current_user()
-        return question_generator.query(request.json['text'], user.event_id)
+        QuestionGenerator(request.json['text'], user.event_id).start()
+        return "Operation successful", status.HTTP_200_OK
 
     return app
