@@ -98,11 +98,13 @@ button.option:hover{
         display: flex;
         justify-content: space-evenly;
         padding: 10px;
+        font-size: 1.5rem;
     }
 
     .question_box > h6 {
         display: flex;
         padding: 10px;
+        font-size: 1.8rem;
         border-bottom: solid 1.5px;
     }
 }
