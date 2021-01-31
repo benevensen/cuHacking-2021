@@ -46,7 +46,7 @@ function getQuestion(el) {
                         let button = document.createElement('button');
                         button.className = "option";
                         button.textContent = option;
-                        button.onclick = () => this.checkAnswer(item['question_id'], option)
+                        button.onclick = () => this.checkAnswer(item['question_id'], option, question)
                         question.append(button);
                     })
                     el.append(question);
@@ -55,8 +55,7 @@ function getQuestion(el) {
         })
 }
 
-function checkAnswer(question_id, option) {
-    console.log(question_id)
+function checkAnswer(question_id, option, question) {
     fetch('http://localhost:8081/question/approved', {
         method: "POST",
         headers: {
@@ -69,4 +68,8 @@ function checkAnswer(question_id, option) {
         }),
     })
         .then(res => res.json())
+        .then((data) => {
+            console.log(data)
+            remove(question)
+        })
 }
