@@ -2,7 +2,7 @@ import csv
 
 from flask import request
 from flask_api import FlaskAPI, status
-from flask_jwt_extended import JWTManager, jwt_optional, get_current_user
+from flask_jwt_extended import JWTManager, jwt_optional, jwt_required, get_current_user
 from flask_sqlalchemy import SQLAlchemy
 
 from attention_keeper.config import get_config
@@ -29,12 +29,11 @@ def create_app():
             db.session.add(City(name=city_name))
         db.session.commit()
 
-    from attention_keeper.util.auth import create_participant_jwt
-    from attention_keeper.controller import event
+    from attention_keeper.controller import event, question, participant
 
     @jwt.user_identity_loader
-    def user_identity_lookup(participant: Participant):
-        return participant.participant_id
+    def user_identity_lookup(user: Participant):
+        return user.participant_id
 
     @jwt.user_loader_callback_loader
     def user_loader_callback_loader(participant_id: int):
@@ -57,15 +56,23 @@ def create_app():
 
     @app.route('/register', methods=['GET'])
     def register():
-        participant = Participant(score=0)
-        db.session.add(participant)
-        db.session.commit()
-        return create_participant_jwt(participant)
+        schema_validator.participant_validator.validate(request.json)
+        return participant.create_participant(**request.json)
 
     @app.route('/question', methods=['GET', 'POST'])
-    @jwt_optional
-    def question():
-        LOGGER.debug(get_current_user())
-        return {}
+    @jwt_required
+    def questions():
+        user = get_current_user()
+        if request.method == 'GET':
+            return question.get_question(user.event_id)
+        else:
+            schema_validator.participant_validator.validate(request.json)
+            return question.approve_question(**request.json)
+
+    @app.route('/question/approved', methods=['GET'])
+    @jwt_required
+    def questions():
+        user = get_current_user()
+        return question.get_approved_question(user.event_id)
 
     return app
