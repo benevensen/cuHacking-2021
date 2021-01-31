@@ -1,6 +1,6 @@
+import config
 from attention_keeper.util import logger
 from attention_keeper.view.api import create_app
-import config
 
 LOGGER = logger.get_logger(__name__)
 
