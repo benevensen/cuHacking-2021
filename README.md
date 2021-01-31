@@ -16,3 +16,8 @@ A RSS feed query is fed into the backend which is passed to the Wikipedia API us
 3) Locations are identified with NLTK and removed and three fake options are added with large US cities.
 
 To emphasize, 1 real option and 3 fake options are generated and passed to the frontend which then quizzes the individual. 
+
+
+## Running the code
+* Run the back end by running the __main__.py
+* The front end can be deployed using any cdn as it's a static project
