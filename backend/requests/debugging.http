@@ -50,6 +50,10 @@ Content-Type: application/json
 DELETE http://localhost:8081/event/2
 
 ###
+GET http://localhost:8081/event/23
+
+
+###
 GET http://localhost:8081/test
 Content-Type:  application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwOTUxMTAsIm5iZiI6MTYxMjA5NTExMCwianRpIjoiZDllZDA2NzQtYzY4NS00MmE0LTk0M2YtNjJhNTM0ZDdjN2E4IiwiaWRlbnRpdHkiOjMsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.XMEIp5lqIaE8Wc3UosR85uYKnxtzxbOpPF4k2swT5-s

@@ -59,3 +59,10 @@ def delete_event(event_id: int):
         db.session.delete(event)
         db.session.commit()
         return "Operation successful", status.HTTP_200_OK
+
+
+def is_on_break(event_id: int):
+    item = Item.query.filter_by(event_id=event_id).order_by(Item.item_id.desc()).first()
+    if item is None:
+        return "No item for event_id", status.HTTP_400_BAD_REQUEST
+    return {'is_on_break': Item.query.filter_by(event_id=event_id).order_by(Item.item_id.desc()).first().isBreak}

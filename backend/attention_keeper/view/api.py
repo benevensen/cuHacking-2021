@@ -18,10 +18,6 @@ def create_app():
     jwt = JWTManager(app)
 
     from attention_keeper.model.participant import Participant
-    from attention_keeper.model.questionParticipant import QuestionParticipant
-    from attention_keeper.model.question import Question, QuestionOption
-    from attention_keeper.model.item import Item
-    from attention_keeper.model.event import Event
     from attention_keeper.model.city import City
 
     with app.app_context():
@@ -55,9 +51,12 @@ def create_app():
         schema_validator.event_validator.validate(request.json)
         return event.create_event(**request.json)
 
-    @app.route('/event/<int:event_id>', methods=['DELETE'])
+    @app.route('/event/<int:event_id>', methods=['GET', 'DELETE'])
     def event_endpoint(event_id: int):
-        return event.delete_event(event_id)
+        if request.method == 'GET':
+            return event.is_on_break(event_id)
+        else:
+            return event.delete_event(event_id)
 
     @app.route('/register', methods=['GET'])
     def register():
