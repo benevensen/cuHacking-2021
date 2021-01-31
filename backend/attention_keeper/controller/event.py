@@ -37,10 +37,6 @@ def create_rss_feed_process(polling_frequency: int, rss_feed: str, event_id: int
     return process.pid
 
 
-def get_feeds():
-    return {'rss_feeds': ''}
-
-
 def create_event(rss_feed: str, name: str):
     event = Event(name=name, rss_feed=rss_feed)
     db.session.add(event)

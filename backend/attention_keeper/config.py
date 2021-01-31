@@ -5,6 +5,7 @@ class Config:
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = "sqlite:///../db.sqlite"
+    NA_LOCATION_FILE = '../na_locations.csv'
     POLLING_FREQUENCY = 100
 
 

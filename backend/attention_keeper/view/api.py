@@ -1,3 +1,5 @@
+import csv
+
 from flask import request
 from flask_api import FlaskAPI, status
 from flask_jwt_extended import JWTManager, jwt_optional, get_current_user
@@ -16,11 +18,16 @@ def create_app():
     jwt = JWTManager(app)
 
     from attention_keeper.model.participant import Participant
-    from attention_keeper.model.item import Item
-    from attention_keeper.model.event import Event
+    from attention_keeper.model.city import City
 
     with app.app_context():
         db.create_all()
+        old_city = {city.name for city in City.query.all()}
+        with open(app.config['NA_LOCATION_FILE'], newline='') as f:
+            new_city = {city for sublist in csv.reader(f) for city in sublist} - old_city
+        for city_name in new_city:
+            db.session.add(City(name=city_name))
+        db.session.commit()
 
     from attention_keeper.util.auth import create_participant_jwt
     from attention_keeper.controller import event
