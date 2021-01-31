@@ -1,5 +1,6 @@
 import csv
 
+import nltk
 from flask import request
 from flask_api import FlaskAPI, status
 from flask_jwt_extended import JWTManager, jwt_required, get_current_user
@@ -28,6 +29,13 @@ def create_app():
         for city_name in new_city:
             db.session.add(City(name=city_name))
         db.session.commit()
+
+    nltk.download('punkt')
+    nltk.download('wordnet')
+    nltk.download('punkt')
+    nltk.download('averaged_perceptron_tagger')
+    nltk.download('maxent_ne_chunker')
+    nltk.download('words')
 
     from attention_keeper.controller import event, question, participant
     from attention_keeper.util.question_generator import QuestionGenerator
