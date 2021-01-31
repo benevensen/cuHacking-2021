@@ -1,49 +1,169 @@
 *{
     box-sizing: border-box;
+    font-family: 'Varela', sans-serif;
 }
 
 body{
     background-color: whitesmoke;
     overflow-x: hidden !important;
+    background-image: url(/frontend/images/alex-shutin-kKvQJ6rK6S4-unsplash.jpg);
+    background-size: cover;
 }
 
-nav{
-    background-color: grey;
-    background: grey;
-    
-}
-
-.vertical-centre{
+.wrapper {
     display: flex;
-    align-items: center;
+    position: relative;
 }
 
-.horizontal-centre{
-    display: flex;
-    justify-content: center;
+.bg-grey {
+    background: #777777;
+    box-shadow: 0px 1px 1px 0.5px;
 }
 
-button.asdasd{
-    width: 50px;
-    height: 50px;
+.shadow{
+    box-shadow: 0px 1px 1px 1px;
 }
 
-@media screen and (max-width: 667px) {
+button.option {
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    width: 20%;
+    box-shadow: 0px 1px 1px 1px;
+}
+
+.overlay{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: red;
+}
+
+/* TABLETS */
+@media screen and (max-width: 2000px) {
     body {
         overflow-x: hidden !important;
+        background-image: url(/frontend/images/alberto-restifo-kKrfPaKgE1c-unsplash.jpg);
+        background-size: cover;
     }
 
-    .selection_buttons{
+    header {
+        display: flex;
+        justify-content: center;
+        /* width: 80%; */
+        /* height: 100%; */
+        position: relative;
+        /* left: 20px; */
+        /* right: 8%; */
+        top: 10px;
+    }
+
+    header > h1, h3{
+        overflow-wrap: break-word;
+    }
+
+    header > h3 {
+        position: relative;
+        top: 75px;
+        font-size: larger;
+        color: #777777;
+        opacity: 99%;
+        padding-bottom: 8px;
+        border-bottom: double 1px;
+        border-color: #777777;
+        font-weight: 600;
+    }
+
+    header > h1 {
         position: absolute;
-        top: 15%;
-        left: 0;
-        right: 0;
+        display: flex;
+        height: fit-content;
+        letter-spacing: 2px;
+        font-weight: 900;
+    }
+
+    .wrapper.question_box {
+        top: 150px;
+        width: 80%;
+        display: block;
         margin: auto;
+        border-radius: 4px;
+        margin-bottom: 15px;
     }
 
-    .container > .prompts{
-        position: absolute;
+    .question_box > .options {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 10px;
+    }
+
+    .question_box > h6 {
+        display: flex;
+        padding: 10px;
+        border-bottom: solid 1.5px;
+    }
+}
+
+/* PHONES */
+@media screen and (max-width: 525px) {
+    body {
+        overflow-x: hidden !important;
+        background-image: url(/frontend/images/andrej-nihil-0-iJd6FNR5I-unsplash.jpg);
+        background-size: cover;
+    }
+
+    header{
+        display: flex;
+        width: 80%;
+        height: 100%;
+        position: relative;
+        left: 20px;
+        right: 8%;
+        top: 10px;
+    }
+
+    header > h1, h3{
+        overflow-wrap: break-word;
+    }
+
+    header > h3 {
+        position: relative;
         top: 100px;
+        font-size: larger;
+        color: #777777;
+        opacity: 99%;
+        padding-bottom: 8px;
+        border-bottom: double 1px;
+        border-color: #777777;
+    }
+
+    header > h1 {
+        position: absolute;
+        display: flex;
+        height: fit-content;
+    }
+
+    .wrapper.question_box {
+        top: 150px;
+        width: 80%;
+        display: block;
+        margin: auto;
+        border-radius: 4px;
+        margin-bottom: 15px; 
+    }
+
+    .question_box > .options {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 10px;
+    }
+
+    .question_box > h6 {
+        display: flex;
+        padding: 10px;
+        border-bottom: solid 1.5px;
     }
 
 
