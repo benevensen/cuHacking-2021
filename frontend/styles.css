@@ -6,9 +6,9 @@
 body {
     background-color: whitesmoke;
     overflow-x: hidden !important;
+    background-color: white; /* For browsers that do not support gradients */
     background-image: url(/frontend/images/alex-shutin-kKvQJ6rK6S4-unsplash.jpg);
     background-size: cover;
-
 }
 
 .wrapper {
@@ -45,8 +45,7 @@ button.option:hover {
 /* TABLETS */
 @media screen and (max-width: 4000px) {
     body {
-        overflow-x: hidden !important;
-        background-image: url(/frontend/images/alberto-restifo-kKrfPaKgE1c-unsplash.jpg);
+        background-image: url(/frontend/images/alex-shutin-kKvQJ6rK6S4-unsplash.jpg);
         background-size: cover;
     }
 
@@ -166,15 +165,19 @@ button.option:hover {
         top: 10px;
     }
 
+    button.option{
+        width: 30%;
+    }
+
     header > h1, h3 {
         overflow-wrap: break-word;
     }
 
     header > h3 {
         position: relative;
-        top: 100px;
+        top: 150px;
         font-size: larger;
-        color: #777777;
+        color: #424242;
         opacity: 99%;
         padding-bottom: 8px;
         border-bottom: double 1px;
@@ -188,7 +191,7 @@ button.option:hover {
     }
 
     .wrapper.question_box {
-        top: 150px;
+        top: 170px;
         width: 80%;
         display: block;
         border-radius: 4px;
