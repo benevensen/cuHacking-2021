@@ -21,7 +21,7 @@ def extract_ner(text: str):
     return chunks
 
 
-def location_question(text: str):
+def location_question(text: str, event_id: int) -> bool:
     entity_list = extract_ner(text)
     cities = City.query.all()
     for entity in entity_list:
@@ -35,7 +35,7 @@ def location_question(text: str):
 
             for i in range(0, 3):
                 options.append(cities[city_numbers[i]][0])
-            question = Question(prompt=text.replace(entity[1], "_______"))
+            question = Question(event_id=event_id, prompt=text.replace(entity[1], "_______"))
             db.session.add(question)
             db.session.commit()
             for option in random.sample(options, len(options)):
@@ -46,7 +46,7 @@ def location_question(text: str):
     return False
 
 
-def person_question(text: str):
+def person_question(text: str, event_id: int) -> bool:
     entity_list = extract_ner(text)
     options = []
     for entity in entity_list:
@@ -63,7 +63,7 @@ def person_question(text: str):
                 if names[0] == "PERSON" and (names[1] not in entity_list) and (len(options) < 4) and " " in names[1]:
                     options.append(names[1])
     if len(options) == 4:
-        question = Question(prompt=text.replace(options[1], "_______"))
+        question = Question(event_id=event_id, prompt=text.replace(options[1], "_______"))
         db.session.add(question)
         db.session.commit()
         for option in options:
@@ -75,7 +75,7 @@ def person_question(text: str):
         return False
 
 
-def date_question(text: str):
+def date_question(text: str, event_id: int) -> bool:
     try:
         x = int(re.search('\d{4}', text).group())
         # if the time difference is less than 5 years, we need to apply a shift so the answers are not obviously wrong
@@ -86,7 +86,7 @@ def date_question(text: str):
         else:
             options = random.sample(list(range(x - 5, x - 1)) + list(range(x + 1, x + 5)), 3)
         options.append(x)
-        question = Question(prompt=text.replace(str(x), "_______"))
+        question = Question(event_id=event_id, prompt=text.replace(str(x), "_______"))
         db.session.add(question)
         db.session.commit()
         for option in options:
