@@ -140,4 +140,6 @@ backend/.idea/
 
 *.sqlite
 
+# node_modules
+node_modules/
 *.sqlite-journal
