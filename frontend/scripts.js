@@ -1,4 +1,5 @@
 let ctr = 0;
+
 function remove(el) {
     let element = el;
     element.classList.add("hidden");
@@ -11,16 +12,16 @@ function checkAnswer(el) {
 
 function getAuth(entry_code) {
     fetch("http://localhost:8081/register", {
-        method: "GET",
+        method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: {
+        body: JSON.stringify({
             "event_id": entry_code
-        },
+        }),
     })
         .then(res => res.json())
         .then((data) => {
-            localStorage.setItem('auth_code', data['token'])
+            localStorage.setItem("auth_code", data["token"])
         })
 }

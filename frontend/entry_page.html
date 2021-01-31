@@ -23,9 +23,10 @@
 </header>
 
 <div class="wrapper entry">
-    <button onclick="getAuth(document.getElementById('entry_code').value)" type="btn submission_button">Submission
+    <button onclick="getAuth(parseInt(document.getElementById('entry_code').value))" type="btn submission_button">
+        Submission
     </button>
-    <input type="text" name="entry_code" id="entry_code" placeholder="Please enter your code here, then press submit">
+    <input type="number" name="entry_code" id="entry_code" placeholder="Please enter your code here, then press submit">
 </div>
 <div class="nav">
     <button type="button" class="btn btn-primary"></button>
