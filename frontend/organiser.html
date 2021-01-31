@@ -22,29 +22,56 @@
             </li>
         </ul>
     </nav>
-
-
-    <div class="d-flex justify-content-center my-auto selection_menu">
-      <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group btn-group-lg mr-2 selection_topics" role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary topic">Movies</button>
-          <button type="button" class="btn btn-secondary topic">Music</button>
-          <button type="button" class="btn btn-secondary topic">Sports</button>
-          <button type="button" class="btn btn-secondary topic">E-Sports</button>
-          <button type="button" class="btn btn-secondary topic">Documentaries</button>
-          <button type="button" class="btn btn-secondary topic">Entertainment</button>
-        </div>
-        <div class="input-group input-group-lg">
-          <div class="input-group-prepend">
-            <div class="input-group-text" id="btnGroupAddon">Number of questions</div>
-          </div>
-          <input type="text" class="form-control" placeholder="Number of questions | e.g., 4" aria-label="Question number" aria-describedby="btnGroupAddon">
-        </div>
-      </div>
+    
+    <div class="selection_buttons horizontal-centre">
+      <button class="button topic">Generate questions!</button>
     </div>
     
-    
-      
+    <div class="container prompts">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Prompt</h5>
+            <small>small</small>
+          </div>
+          <p class="mb-1">Kindly select an option:-</p>
+          <button class="btn btn-success">
+            True
+        </button>
+        <button class="btn btn-danger">
+          False
+      </button>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Prompt</h5>
+            <button class="remove_btn"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
+            
+          </div>
+          <p class="mb-1">Kindly select an option:-</p>
+          <button class="btn btn-success">
+            True
+        </button>
+        <button class="btn btn-danger">
+            False
+      </button>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Kindly select an option:-</h5>
+            <small>small</small>
+          </div>
+          <p class="mb-1">Kindly select an option:-</p>
+          <button class="btn btn-success">
+              True
+          </button>
+          <button class="btn btn-danger">
+              False
+        </button>
+        </a>
+      </div>
+    </div>
+
     <!-- Optional JavaScript -->
     <script src="/frontend/organiser.js"></script>
 

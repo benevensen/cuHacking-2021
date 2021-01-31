@@ -13,19 +13,41 @@ nav{
     
 }
 
-.selection_menu{
-    top: 20%
-    
+.vertical-centre{
+    display: flex;
+    align-items: center;
 }
 
-button.topic{
-    
+.horizontal-centre{
+    display: flex;
+    justify-content: center;
 }
+
+.remove_btn{
+    width: 20px;
+    height: 100px;
+}
+
+
 
 @media screen and (max-width: 667px) {
     body {
         overflow-x: hidden !important;
     }
-    
-    
+
+    .selection_buttons{
+        position: absolute;
+        top: 15%;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .container > .prompts{
+        position: absolute;
+        top: 100px;
+    }
+
+
+
 }
