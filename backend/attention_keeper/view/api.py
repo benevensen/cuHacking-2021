@@ -1,4 +1,5 @@
 import csv
+import requests
 
 from flask import request
 from flask_api import FlaskAPI, status
@@ -22,6 +23,8 @@ def create_app():
     from attention_keeper.model.item import Item
     from attention_keeper.model.event import Event
     from attention_keeper.model.city import City
+    
+    from attention_keeper.model.nhl_model import Team, Player 
 
     with app.app_context():
         db.create_all()
@@ -31,6 +34,19 @@ def create_app():
         for city_name in new_city:
             db.session.add(City(name=city_name))
         db.session.commit()
+        
+        old_nhl_teams = {team.name for team in Team.query.all()}
+        response = requests.get('https://records.nhl.com/site/api/franchise')
+        json_response = response.json()
+        new_nhl_teams = []
+        for i in range(0,json_response['total']):
+	        nhl_teams.append(json_response['data'][i]["teamPlaceName"] + " " + json_response['data'][i]["teamCommonName"])
+        new_nhl_teams = new_nhl_teams - old_nhl_teams
+        for nhl_team in new_nhl_teams:
+            db.session.add(Team(name=nhl_team))
+        db.session.commit()
+        
+
 
     from attention_keeper.controller import event, question, participant
     from attention_keeper.util import question_generator
