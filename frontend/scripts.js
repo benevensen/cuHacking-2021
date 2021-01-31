@@ -7,10 +7,5 @@ function remove(el) {
 }
 
 function checkAnswer(el) {
-    let element = el;
-    let value = element.getAttribute('name');
-    if(value == "True"){
-        ctr++; //grant a point for correct answer
-        console.log(ctr);
-    }
+    
 }

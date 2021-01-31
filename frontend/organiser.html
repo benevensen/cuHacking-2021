@@ -19,6 +19,16 @@
     <header>
       <h1>Welcome, teacher!</h1>
       <h3>Kindly curate the list below, as per your liking.</h3>
+      <div class="wrapper entry">
+        <input  type="text" name="entry_code" id="entry_code" placeholder="Please enter your code here, then press enter">
+        <script type="text/javascript">
+          $(document).ready(function(){
+              $("#entry_code").on('change',function(){
+                  
+              });
+          });
+          </script>
+      </div>
     </header>
 
     <main>
@@ -38,7 +48,7 @@
           <button class="option">With legs</button>
         </span>
       </div>
-      
+      <a href="/frontend/applicant.html"><button type="button" class="btn btn-secondary switch_pages">Take quiz</button></a>
     </main>
     
     <!-- <nav class="navbar navbar-expand navbar-light bg-secondary">
