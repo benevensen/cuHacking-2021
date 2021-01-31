@@ -65,16 +65,20 @@ def create_app():
     def questions():
         user = get_current_user()
         if request.method == 'GET':
-            return question.get_question(user.event_id)
+            return question.get_not_approved_question(user.event_id)
         else:
-            schema_validator.participant_validator.validate(request.json)
+            schema_validator.approve_question_validator.validate(request.json)
             return question.approve_question(**request.json)
 
-    @app.route('/question/approved', methods=['GET'])
+    @app.route('/question/approved', methods=['GET', 'POST'])
     @jwt_required
     def question_approved():
         user = get_current_user()
-        return question.get_approved_question(user.event_id)
+        if request.method == 'GET':
+            return question.get_approved_question(user.event_id)
+        else:
+            schema_validator.answer_question_validator.validate(request.json)
+            return question.answer(user, **request.json)
 
     @app.route('/test', methods=['GET'])
     @jwt_required
