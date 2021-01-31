@@ -12,6 +12,11 @@ GET http://localhost:8081/
 ###
 
 GET http://localhost:8081/register
+Content-Type: application/json
+
+{
+  "event_id": 1
+}
 
 ###
 GET http://localhost:8081/question
@@ -22,3 +27,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwMzY2M
 DELETE http://localhost:8081/event/2
 
 ###
+GET http://localhost:8081/test
+Content-Type:  application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwNjk2NjksIm5iZiI6MTYxMjA2OTY2OSwianRpIjoiZWMzNWQzN2QtNWNmNC00OTJjLWI0OTctZWVjZmEyODg4MzllIiwiaWRlbnRpdHkiOjEsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.rnO8xxXI5XDBz7-pqbNTH8cxJxly6lx2hpDHBLk--mk
+
+{
+  "text": "barack obama"
+}

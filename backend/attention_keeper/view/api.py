@@ -2,7 +2,7 @@ import csv
 
 from flask import request
 from flask_api import FlaskAPI, status
-from flask_jwt_extended import JWTManager, jwt_optional, jwt_required, get_current_user
+from flask_jwt_extended import JWTManager, jwt_required, get_current_user
 from flask_sqlalchemy import SQLAlchemy
 
 from attention_keeper.config import get_config
@@ -18,6 +18,9 @@ def create_app():
     jwt = JWTManager(app)
 
     from attention_keeper.model.participant import Participant
+    from attention_keeper.model.question import Question,QuestionOption
+    from attention_keeper.model.item import Item
+    from attention_keeper.model.event import Event
     from attention_keeper.model.city import City
 
     with app.app_context():
@@ -30,6 +33,7 @@ def create_app():
         db.session.commit()
 
     from attention_keeper.controller import event, question, participant
+    from attention_keeper.util import question_generator
 
     @jwt.user_identity_loader
     def user_identity_lookup(user: Participant):
@@ -71,8 +75,14 @@ def create_app():
 
     @app.route('/question/approved', methods=['GET'])
     @jwt_required
-    def questions():
+    def question_approved():
         user = get_current_user()
         return question.get_approved_question(user.event_id)
+
+    @app.route('/test', methods=['GET'])
+    @jwt_required
+    def test():
+        user = get_current_user()
+        return question_generator.query(request.json['text'], user.event_id)
 
     return app

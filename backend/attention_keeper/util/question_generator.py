@@ -11,7 +11,6 @@ from attention_keeper.model.city import City
 from attention_keeper.model.question import Question, QuestionOption
 from attention_keeper.view.api import db
 
-
 def extract_ner(text: str):
     chunks = []
     tree = ne_chunk(pos_tag(word_tokenize(text)))
@@ -23,7 +22,7 @@ def extract_ner(text: str):
 
 def location_question(text: str, event_id: int) -> bool:
     entity_list = extract_ner(text)
-    cities = City.query.all()
+    cities = [city.name for city in City.query.all()]
     for entity in entity_list:
         # Question Number 1. Location Generation
         if entity[0] == "GPE" and entity[1] != "American":
@@ -34,7 +33,7 @@ def location_question(text: str, event_id: int) -> bool:
             city_numbers = random.sample(range(0, len(cities)), 3)
 
             for i in range(0, 3):
-                options.append(cities[city_numbers[i]][0])
+                options.append(cities[city_numbers[i]])
             question = Question(event_id=event_id, prompt=text.replace(entity[1], "_______"))
             db.session.add(question)
             db.session.commit()
@@ -60,7 +59,8 @@ def person_question(text: str, event_id: int) -> bool:
                 return False
 
             for names in possible_names:
-                if names[0] == "PERSON" and (names[1] not in entity_list) and (len(options) < 4) and " " in names[1]:
+                if names[0] == "PERSON" and (names[1] not in entity_list) and (len(options) < 4) and \
+                        " " in names[1] and names[1] not in options:
                     options.append(names[1])
     if len(options) == 4:
         question = Question(event_id=event_id, prompt=text.replace(options[0], "_______"))
@@ -98,12 +98,13 @@ def date_question(text: str, event_id: int) -> bool:
         return False
 
 
-def query(text: str):
+def query(text: str, event_id: int):
     try:
         wiki_query = wikipedia.search(text)
-        #Theres a corner case in particular with the U.S. that makes this code go haywire. Just remove it. Its a rare case.
-        wiki_list = wikipedia.summary(wiki_query[0]).replace('U.S.','US')
-    except Exception as e:
+        # Theres a corner case in particular with the U.S. that makes this code go haywire. Just remove it. Its a
+        # rare case.
+        wiki_list = wikipedia.summary(wiki_query[0], 0, 0, False, True).replace('U.S.', 'US')
+    except wikipedia.WikipediaException:
         return None
 
     query_sentences = wiki_list.split('. ')
@@ -114,7 +115,7 @@ def query(text: str):
             remove_next = False
             continue
         if len(sentence) < 10:
-            if good_sentences != []:
+            if good_sentences:
                 good_sentences.pop()
                 remove_next = True
         else:
@@ -125,6 +126,8 @@ def query(text: str):
     location_q_list = []
 
     for sentence in good_sentences:
-        person_q_list.append(person_question(sentence))
-        date_q_list.append(date_question(sentence))
-        location_q_list.append(location_question(sentence))
+        person_q_list.append(person_question(sentence, event_id))
+        date_q_list.append(date_question(sentence, event_id))
+        location_q_list.append(location_question(sentence, event_id))
+
+    return {"person_q_list": person_q_list, "date_q_list": date_q_list, "location_q_list": location_q_list}
