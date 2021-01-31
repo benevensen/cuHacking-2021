@@ -19,5 +19,5 @@ To emphasize, 1 real option and 3 fake options are generated and passed to the f
 
 
 ## Running the code
-* Run the back end by running the __main__.py
+* Run the back end by running the `__main__.py`
 * The front end can be deployed using any cdn as it's a static project
