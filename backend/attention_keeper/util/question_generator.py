@@ -26,7 +26,7 @@ def location_question(text: str, event_id: int) -> bool:
     cities = City.query.all()
     for entity in entity_list:
         # Question Number 1. Location Generation
-        if entity[0] == "GPE":
+        if entity[0] == "GPE" and entity[1] != "American":
             options = [entity[1]]
             if entity[1] in cities:
                 cities.remove(entity[1])
@@ -63,12 +63,12 @@ def person_question(text: str, event_id: int) -> bool:
                 if names[0] == "PERSON" and (names[1] not in entity_list) and (len(options) < 4) and " " in names[1]:
                     options.append(names[1])
     if len(options) == 4:
-        question = Question(event_id=event_id, prompt=text.replace(options[1], "_______"))
+        question = Question(event_id=event_id, prompt=text.replace(options[0], "_______"))
         db.session.add(question)
         db.session.commit()
         for option in options:
             db.session.add(
-                QuestionOption(question_id=question.question_id, option=option, correct=option == options[1]))
+                QuestionOption(question_id=question.question_id, option=option, correct=option == options[0]))
         db.session.commit()
         return True
     else:
@@ -96,3 +96,35 @@ def date_question(text: str, event_id: int) -> bool:
         return True
     except:
         return False
+
+
+def query(text: str):
+    try:
+        wiki_query = wikipedia.search(text)
+        #Theres a corner case in particular with the U.S. that makes this code go haywire. Just remove it. Its a rare case.
+        wiki_list = wikipedia.summary(wiki_query[0]).replace('U.S.','US')
+    except Exception as e:
+        return None
+
+    query_sentences = wiki_list.split('. ')
+    good_sentences = []
+    remove_next = False
+    for number, sentence in enumerate(query_sentences):
+        if remove_next:
+            remove_next = False
+            continue
+        if len(sentence) < 10:
+            if good_sentences != []:
+                good_sentences.pop()
+                remove_next = True
+        else:
+            good_sentences.append(sentence)
+
+    person_q_list = []
+    date_q_list = []
+    location_q_list = []
+
+    for sentence in good_sentences:
+        person_q_list.append(person_question(sentence))
+        date_q_list.append(date_question(sentence))
+        location_q_list.append(location_question(sentence))
