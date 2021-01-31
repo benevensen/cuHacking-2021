@@ -23,7 +23,30 @@ GET http://localhost:8081/question
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwOTUxMTAsIm5iZiI6MTYxMjA5NTExMCwianRpIjoiZDllZDA2NzQtYzY4NS00MmE0LTk0M2YtNjJhNTM0ZDdjN2E4IiwiaWRlbnRpdHkiOjMsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.XMEIp5lqIaE8Wc3UosR85uYKnxtzxbOpPF4k2swT5-s
 
 ###
+POST http://localhost:8081/question
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwOTUxMTAsIm5iZiI6MTYxMjA5NTExMCwianRpIjoiZDllZDA2NzQtYzY4NS00MmE0LTk0M2YtNjJhNTM0ZDdjN2E4IiwiaWRlbnRpdHkiOjMsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.XMEIp5lqIaE8Wc3UosR85uYKnxtzxbOpPF4k2swT5-s
+Content-Type: application/json
 
+{
+  "question_id": 1,
+  "approved": true
+}
+
+###
+GET http://localhost:8081/question/approved
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwOTUxMTAsIm5iZiI6MTYxMjA5NTExMCwianRpIjoiZDllZDA2NzQtYzY4NS00MmE0LTk0M2YtNjJhNTM0ZDdjN2E4IiwiaWRlbnRpdHkiOjMsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.XMEIp5lqIaE8Wc3UosR85uYKnxtzxbOpPF4k2swT5-s
+
+###
+POST http://localhost:8081/question/approved
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTIwOTUxMTAsIm5iZiI6MTYxMjA5NTExMCwianRpIjoiZDllZDA2NzQtYzY4NS00MmE0LTk0M2YtNjJhNTM0ZDdjN2E4IiwiaWRlbnRpdHkiOjMsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.XMEIp5lqIaE8Wc3UosR85uYKnxtzxbOpPF4k2swT5-s
+Content-Type: application/json
+
+{
+  "question_id": 1,
+  "option": "Hussein Obama II"
+}
+
+###
 DELETE http://localhost:8081/event/2
 
 ###

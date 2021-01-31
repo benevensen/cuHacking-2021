@@ -18,6 +18,10 @@ def create_app():
     jwt = JWTManager(app)
 
     from attention_keeper.model.participant import Participant
+    from attention_keeper.model.questionParticipant import QuestionParticipant
+    from attention_keeper.model.question import Question, QuestionOption
+    from attention_keeper.model.item import Item
+    from attention_keeper.model.event import Event
     from attention_keeper.model.city import City
 
     with app.app_context():

@@ -40,7 +40,7 @@ def answer(participant: Participant, question_id: int, option: str):
     options = QuestionOption.query.filter_by(question_id=question.question_id).all()
     for question_option in options:
         if question_option.option == option:
-            db.session.add(QuestionParticipant(question_id, participant.participant_id))
+            db.session.add(QuestionParticipant(question_id=question_id, participant_id=participant.participant_id))
             if question_option.correct:
                 participant.score += 1
                 db.session.commit()
